@@ -2,11 +2,13 @@
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-// Enable CORS
+// Enable CORS to allow access from anywhere
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
@@ -14,27 +16,23 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
-// Enable Swagger in both Development and Production (optional)
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment() || true) // Enable Swagger in all environments
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-// Apply CORS before authorization
-app.UseCors("AllowAllOrigins");
+// Enable CORS (Make sure this comes BEFORE Authorization)
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
-app.MapControllers();
+app.UseStaticFiles();
 
+app.MapControllers();
 
 app.Run();
