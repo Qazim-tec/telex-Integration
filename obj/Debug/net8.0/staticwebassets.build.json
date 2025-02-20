@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "Hash": "KR2X05g5G2Bp2fWkU6UqU1DtOqsXSd5E17Dsxm4CqSo=",
+  "Source": "MedAlert",
+  "BasePath": "_content/MedAlert",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MedAlert\\wwwroot",
+      "Source": "MedAlert",
+      "ContentRoot": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\",
+      "BasePath": "_content/MedAlert",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\MedAlertConfig.json",
+      "SourceId": "MedAlert",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\",
+      "BasePath": "_content/MedAlert",
+      "RelativePath": "MedAlertConfig#[.{fingerprint}]?.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cto9bqnft2",
+      "Integrity": "IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MedAlertConfig.json"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "MedAlertConfig.cto9bqnft2.json",
+      "AssetFile": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\MedAlertConfig.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1821"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cto9bqnft2"
+        },
+        {
+          "Name": "label",
+          "Value": "MedAlertConfig.json"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+        }
+      ]
+    },
+    {
+      "Route": "MedAlertConfig.json",
+      "AssetFile": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\MedAlertConfig.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1821"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+        }
+      ]
+    }
+  ]
+}

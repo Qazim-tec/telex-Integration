@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\MedAlertConfig.json",
+      "PackagePath": "staticwebassets\\MedAlertConfig.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MedAlert.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MedAlert.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MedAlert.props",
+      "PackagePath": "build\\MedAlert.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MedAlert.props",
+      "PackagePath": "buildMultiTargeting\\MedAlert.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MedAlert.props",
+      "PackagePath": "buildTransitive\\MedAlert.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

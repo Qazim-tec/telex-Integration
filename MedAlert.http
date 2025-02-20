@@ -1,0 +1,6 @@
+@MedAlert_HostAddress = http://localhost:5241
+
+GET {{MedAlert_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

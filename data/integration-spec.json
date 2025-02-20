@@ -1,0 +1,61 @@
+{
+  "data": {
+    "date": {
+      "created_at": "2025-02-20",
+      "updated_at": "2025-02-20"
+    },
+    "descriptions": {
+      "app_description": "MedAlert sends scheduled medical reminders to a Telex channel.",
+      "app_logo": "http://localhost:5000/assets/medalert-logo.png",
+      "app_name": "MedAlert",
+      "app_url": "https://localhost:7277",
+      "background_color": "#3498db"
+    },
+    "integration_category": "Task Automation",
+    "integration_type": "interval",
+    "is_active": true,
+    "output": [
+      {
+        "label": "Reminder Sent",
+        "value": true
+      }
+    ],
+    "key_features": [
+      "Schedule medical reminders at intervals.",
+      "Send automated alerts to Telex channels.",
+      "Customize message frequency and content.",
+      "Support for multiple notification channels."
+    ],
+    "permissions": {
+      "reminder_user": {
+        "always_online": true,
+        "display_name": "MedAlert Scheduler"
+      }
+    },
+    "settings": [
+      {
+        "label": "Reminder Interval",
+        "type": "text",
+        "required": true,
+        "default_value": "0 9 * * *",
+        "description": "Cron format for scheduling reminders (default: every day at 9 AM)."
+      },
+      {
+        "label": "Reminder Message",
+        "type": "text",
+        "required": true,
+        "default_value": "Time for your medication!",
+        "description": "Custom message sent as a reminder."
+      },
+      {
+        "label": "Alert Recipients",
+        "type": "multi-checkbox",
+        "required": true,
+        "default_value": "Patient",
+        "options": [ "Patient", "Doctor", "Caregiver" ]
+      }
+    ],
+    "tick_url": "https://localhost:7277/api/medalert/tick",
+    "target_url": "https://localhost:7277/api/medalert/collect"
+  }
+}

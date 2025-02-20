@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "ManifestType": "Build",
+  "Endpoints": [
+    {
+      "Route": "MedAlertConfig.cto9bqnft2.json",
+      "AssetFile": "MedAlertConfig.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1821"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cto9bqnft2"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+        },
+        {
+          "Name": "label",
+          "Value": "MedAlertConfig.json"
+        }
+      ]
+    },
+    {
+      "Route": "MedAlertConfig.json",
+      "AssetFile": "MedAlertConfig.json",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1821"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/json"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+        }
+      ]
+    }
+  ]
+}
