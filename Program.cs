@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -14,14 +14,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Swagger
+// Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable Swagger in both Development and Production (optional)
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -35,5 +35,6 @@ app.UseCors("AllowAllOrigins");
 
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();

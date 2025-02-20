@@ -37,3 +37,4 @@ C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.pdb
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.genruntimeconfig.cache
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\ref\MedAlert.dll
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\bin\Debug\net8.0\data\integration-spec.json
+C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.sourcelink.json
