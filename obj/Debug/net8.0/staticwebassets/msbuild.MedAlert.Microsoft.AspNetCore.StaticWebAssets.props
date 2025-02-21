@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>cto9bqnft2</Fingerprint>
-      <Integrity>IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=</Integrity>
+      <Fingerprint>au0kbdv7rq</Fingerprint>
+      <Integrity>vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\MedAlertConfig.json'))</OriginalItemSpec>

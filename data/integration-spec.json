@@ -18,6 +18,10 @@
       {
         "label": "Reminder Sent",
         "value": true
+      },
+      {
+        "label": "output_channel_2",
+        "value": false
       }
     ],
     "key_features": [
@@ -34,24 +38,23 @@
     },
     "settings": [
       {
-        "label": "Reminder Interval",
+        "label": "Interval",
         "type": "text",
         "required": true,
-        "default_value": "0 9 * * *",
-        "description": "Cron format for scheduling reminders (default: every day at 9 AM)."
+        "default": "* * * * *"
+        
       },
       {
         "label": "Reminder Message",
         "type": "text",
         "required": true,
-        "default_value": "Time for your medication!",
-        "description": "Custom message sent as a reminder."
-      },
+        "default": "Time for your medication!"
+       },
       {
         "label": "Alert Recipients",
         "type": "multi-checkbox",
         "required": true,
-        "default_value": "Patient",
+        "default": "Patient",
         "options": [ "Patient", "Doctor", "Caregiver" ]
       }
     ],

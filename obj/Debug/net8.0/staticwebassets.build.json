@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KR2X05g5G2Bp2fWkU6UqU1DtOqsXSd5E17Dsxm4CqSo=",
+  "Hash": "eAEkzZM3IhY18eJkC2gL+OORfvikRBOlWP188UOel6I=",
   "Source": "MedAlert",
   "BasePath": "_content/MedAlert",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "cto9bqnft2",
-      "Integrity": "IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=",
+      "Fingerprint": "au0kbdv7rq",
+      "Integrity": "vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\MedAlertConfig.json"
@@ -40,7 +40,7 @@
   ],
   "Endpoints": [
     {
-      "Route": "MedAlertConfig.cto9bqnft2.json",
+      "Route": "MedAlertConfig.au0kbdv7rq.json",
       "AssetFile": "C:\\Users\\QAZIM\\Documents\\Blogsite\\MedAlert\\wwwroot\\MedAlertConfig.json",
       "Selectors": [],
       "ResponseHeaders": [
@@ -50,7 +50,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1821"
+          "Value": "1887"
         },
         {
           "Name": "Content-Type",
@@ -58,11 +58,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+          "Value": "\"vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+          "Value": "Thu, 20 Feb 2025 22:13:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -72,7 +72,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cto9bqnft2"
+          "Value": "au0kbdv7rq"
         },
         {
           "Name": "label",
@@ -80,7 +80,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+          "Value": "sha256-vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY="
         }
       ]
     },
@@ -95,7 +95,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1821"
+          "Value": "1887"
         },
         {
           "Name": "Content-Type",
@@ -103,11 +103,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4=\""
+          "Value": "\"vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 20 Feb 2025 19:06:20 GMT"
+          "Value": "Thu, 20 Feb 2025 22:13:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -117,7 +117,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-IFfVJpYvmWyydu+xIu5cHEHSme44ZqD0H3jhz1QQFi4="
+          "Value": "sha256-vs9z7t5UeOmCG64/gaZC7NOQdhqTf9r6xPVBJJgi8BY="
         }
       ]
     }
