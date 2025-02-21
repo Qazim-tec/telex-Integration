@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,7 +28,6 @@ builder.Services.AddCors(options =>
                  "https://telex.im",
                  "https://*.telex.im"
              )
-             .AllowCredentials()
    );
 });
 
@@ -40,11 +40,8 @@ builder.Services.AddScoped<WebhookService>();
 var app = builder.Build();
 
 // Enable Swagger UI for API testing
-if (app.Environment.IsDevelopment() || true)
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

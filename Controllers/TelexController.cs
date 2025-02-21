@@ -12,7 +12,8 @@ public class TelexController : ControllerBase
     private readonly string _jsonFilePath = "data/integration-spec.json";
     private static Timer? _reminderTimer;
     private static string _reminderMessage = "Time for your medication!";
-    private static int _intervalMinutes = 1; // Default interval
+    private static string _interval = "* * * * *"; // Default cron pattern
+    private static string[] _alertRecipients = { "Patient" };
     private readonly WebhookService _webhookService;
 
     public TelexController(WebhookService webhookService)
@@ -29,20 +30,33 @@ public class TelexController : ControllerBase
             var jsonData = System.IO.File.ReadAllText(_jsonFilePath);
             using var document = JsonDocument.Parse(jsonData);
             var root = document.RootElement.GetProperty("data");
+
+            // Extract settings from JSON
+            _interval = root.GetProperty("settings")[0].GetProperty("default").GetString() ?? _interval;
             _reminderMessage = root.GetProperty("settings")[1].GetProperty("default").GetString() ?? _reminderMessage;
-            _intervalMinutes = int.TryParse(root.GetProperty("settings")[0].GetProperty("default").GetString(), out int interval) ? interval : _intervalMinutes;
+
+            // Extract recipients list
+            var recipientsElement = root.GetProperty("settings")[2].GetProperty("default");
+            _alertRecipients = new string[] { recipientsElement.GetString() ?? "Patient" };
         }
     }
 
     private void StartReminderTimer()
     {
-        _reminderTimer = new Timer(SendReminder, null, _intervalMinutes * 60000, _intervalMinutes * 60000);
+        // Default interval: 1 minute (adjust as needed)
+        int intervalMs = 60000;
+        _reminderTimer = new Timer(SendReminder, null, intervalMs, intervalMs);
     }
 
     private async void SendReminder(object? state)
     {
-        Console.WriteLine($"[Reminder] {_reminderMessage}");
-        await _webhookService.SendWebhookNotification("Medication Reminder", _reminderMessage, "TelexUser");
+        Console.WriteLine($"[Reminder Sent] {_reminderMessage} to {string.Join(", ", _alertRecipients)}");
+
+        await _webhookService.SendWebhookNotification(
+            "Medication Reminder",
+            _reminderMessage,
+            string.Join(", ", _alertRecipients)
+        );
     }
 
     [HttpGet("integration-spec")]
@@ -67,7 +81,7 @@ public class TelexController : ControllerBase
     [HttpPost("collect")]
     public IActionResult Collect([FromBody] object payload)
     {
-        Console.WriteLine($"Received data: {payload}");
+        Console.WriteLine($"[Data Received] {payload}");
         return Ok(new { success = true, message = "Data collected successfully" });
     }
 }
