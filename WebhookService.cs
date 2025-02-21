@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 public class WebhookService
@@ -14,7 +13,7 @@ public class WebhookService
         _httpClient = httpClient;
     }
 
-    public async Task<bool> SendWebhookNotification(string eventName, string message, string username)
+    public async Task SendWebhookNotification(string eventName, string message, string username)
     {
         var payload = new
         {
@@ -27,21 +26,12 @@ public class WebhookService
         try
         {
             var response = await _httpClient.PostAsJsonAsync(_webhookUrl, payload);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"[Webhook Error] HTTP {response.StatusCode}: {error}");
-                return false;
-            }
-
+            response.EnsureSuccessStatusCode();
             Console.WriteLine("[Webhook Sent Successfully]");
-            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"[Webhook Error] {ex.Message}");
-            return false;
         }
     }
 }

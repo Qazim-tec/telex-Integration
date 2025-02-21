@@ -29,7 +29,6 @@ C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets\msbu
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MedAlert.props
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MedAlert.props
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.csproj.Up2Date
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.dll
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\refint\MedAlert.dll
@@ -39,3 +38,4 @@ C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\ref\MedAlert.dll
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\bin\Debug\net8.0\data\integration-spec.json
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\MedAlert.sourcelink.json
 C:\Users\QAZIM\Documents\Blogsite\MedAlert\bin\Debug\net8.0\NCrontab.Signed.dll
+C:\Users\QAZIM\Documents\Blogsite\MedAlert\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
