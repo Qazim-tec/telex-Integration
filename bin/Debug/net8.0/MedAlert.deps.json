@@ -9,6 +9,7 @@
       "MedAlert/1.0.0": {
         "dependencies": {
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.21.0",
+          "NCrontab.Signed": "3.3.3",
           "Newtonsoft.Json": "13.0.3",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -26,6 +27,14 @@
         }
       },
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.21.0": {},
+      "NCrontab.Signed/3.3.3": {
+        "runtime": {
+          "lib/netstandard2.0/NCrontab.Signed.dll": {
+            "assemblyVersion": "3.3.3.0",
+            "fileVersion": "3.3.3.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -100,6 +109,13 @@
       "sha512": "sha512-8NudeHOE56YsY59HYY89akRMup8Ho+7Y3cADTGjajjWroXVU9RQai2nA6PfteB8AuzmRHZ5NZQB2BnWhQEul5g==",
       "path": "microsoft.visualstudio.azure.containers.tools.targets/1.21.0",
       "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.21.0.nupkg.sha512"
+    },
+    "NCrontab.Signed/3.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YzLZyFiovVnAvvsTDnQygC82KhQyJIMsBspTYvHaK4Fp73UgUCni05mIQgOMZIZDlnO8Mg9fcNi5fpDArgQO4A==",
+      "path": "ncrontab.signed/3.3.3",
+      "hashPath": "ncrontab.signed.3.3.3.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",

@@ -14,6 +14,16 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
+
+    options.AddPolicy("AllowTelex", policy =>
+       policy.AllowAnyMethod()
+             .AllowAnyHeader()
+             .WithOrigins(
+                 "https://telex.im",
+                 "https://*.telex.im"
+             )
+             .AllowCredentials()
+   );
 });
 
 var app = builder.Build();

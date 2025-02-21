@@ -33,6 +33,19 @@
           "build/Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets": {}
         }
       },
+      "NCrontab.Signed/3.3.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NCrontab.Signed.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NCrontab.Signed.dll": {
+            "related": ".pdb"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -438,6 +451,24 @@
         "tools/zh-Hant/Microsoft.VisualStudio.Containers.Tools.Tasks.resources.dll"
       ]
     },
+    "NCrontab.Signed/3.3.3": {
+      "sha512": "YzLZyFiovVnAvvsTDnQygC82KhQyJIMsBspTYvHaK4Fp73UgUCni05mIQgOMZIZDlnO8Mg9fcNi5fpDArgQO4A==",
+      "type": "package",
+      "path": "ncrontab.signed/3.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING.txt",
+        "lib/net35/NCrontab.Signed.dll",
+        "lib/net35/NCrontab.Signed.pdb",
+        "lib/netstandard1.0/NCrontab.Signed.dll",
+        "lib/netstandard1.0/NCrontab.Signed.pdb",
+        "lib/netstandard2.0/NCrontab.Signed.dll",
+        "lib/netstandard2.0/NCrontab.Signed.pdb",
+        "ncrontab.signed.3.3.3.nupkg.sha512",
+        "ncrontab.signed.nuspec"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -574,6 +605,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.21.0",
+      "NCrontab.Signed >= 3.3.3",
       "Newtonsoft.Json >= 13.0.3",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
@@ -632,6 +664,10 @@
             "target": "Package",
             "version": "[1.21.0, )"
           },
+          "NCrontab.Signed": {
+            "target": "Package",
+            "version": "[3.3.3, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
@@ -663,13 +699,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }
