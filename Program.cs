@@ -1,11 +1,16 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Enable CORS to allow access from anywhere
+// Enable CORS policies
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -26,10 +31,16 @@ builder.Services.AddCors(options =>
    );
 });
 
+// Register HttpClient for making HTTP requests
+builder.Services.AddHttpClient();
+
+// Register WebhookService
+builder.Services.AddScoped<WebhookService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || true) // Enable Swagger in all environments
+// Enable Swagger UI for API testing
+if (app.Environment.IsDevelopment() || true)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -37,12 +48,13 @@ if (app.Environment.IsDevelopment() || true) // Enable Swagger in all environmen
 
 app.UseHttpsRedirection();
 
-// Enable CORS (Make sure this comes BEFORE Authorization)
+// Enable CORS (should be before Authorization)
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
 app.UseStaticFiles();
 
+// Map API controllers
 app.MapControllers();
 
 app.Run();

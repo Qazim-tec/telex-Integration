@@ -3,16 +3,7 @@
     "/app/wwwroot/"
   ],
   "Root": {
-    "Children": {
-      "MedAlertConfig.json": {
-        "Children": null,
-        "Asset": {
-          "ContentRootIndex": 0,
-          "SubPath": "MedAlertConfig.json"
-        },
-        "Patterns": null
-      }
-    },
+    "Children": null,
     "Asset": null,
     "Patterns": [
       {

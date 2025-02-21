@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading;
@@ -12,9 +13,11 @@ public class TelexController : ControllerBase
     private static Timer? _reminderTimer;
     private static string _reminderMessage = "Time for your medication!";
     private static int _intervalMinutes = 1; // Default interval
+    private readonly WebhookService _webhookService;
 
-    public TelexController()
+    public TelexController(WebhookService webhookService)
     {
+        _webhookService = webhookService;
         LoadSettings();
         StartReminderTimer();
     }
@@ -36,9 +39,10 @@ public class TelexController : ControllerBase
         _reminderTimer = new Timer(SendReminder, null, _intervalMinutes * 60000, _intervalMinutes * 60000);
     }
 
-    private void SendReminder(object? state)
+    private async void SendReminder(object? state)
     {
         Console.WriteLine($"[Reminder] {_reminderMessage}");
+        await _webhookService.SendWebhookNotification("Medication Reminder", _reminderMessage, "TelexUser");
     }
 
     [HttpGet("integration-spec")]
