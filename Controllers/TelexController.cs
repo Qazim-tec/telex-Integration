@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 [Route("api/medalert")]
 [ApiController]
@@ -71,10 +72,31 @@ public class TelexController : ControllerBase
 
     // This endpoint is triggered automatically by Telex at the configured interval
     [HttpPost("tick")]
-    public async Task<IActionResult> Tick()
+    public async Task<IActionResult> Tick([FromBody] MonitorPayload payload)
     {
+        if (payload == null)
+        {
+            return BadRequest(new { error = "Invalid payload" });
+        }
+
+        // Fetch interval from the integration spec (e.g., from the JSON file)
+        var interval = payload.GetSetting("Interval") ?? "* * * * *"; // Default to "* * * * *" (every minute)
+        Console.WriteLine($"[Interval] {interval}");
+
+        // Handle reminder logic based on received settings
+        _reminderMessage = payload.GetSetting("Reminder Message") ?? _reminderMessage;
+        _alertRecipients = payload.GetSetting("Alert Recipients")?.Split(",") ?? _alertRecipients;
+
+        // Log channelId for debugging purposes
+        Console.WriteLine($"[Received Tick] ChannelId: {payload.ChannelId}");
+
+        // Log or return the returnUrl if needed
+        Console.WriteLine($"[Return URL] {payload.ReturnUrl}");
+
+        // Simulate sending a reminder after the interval (for illustration, add real interval logic here)
         await SendReminder();
-        return Ok(new { success = true, message = "Reminder sent successfully" });
+
+        return Ok(new { success = true, message = "Reminder sent successfully", returnUrl = payload.ReturnUrl });
     }
 
     private async Task SendReminder()
@@ -82,9 +104,31 @@ public class TelexController : ControllerBase
         string recipients = string.Join(", ", _alertRecipients);
         Console.WriteLine($"[Reminder Sent] {_reminderMessage} to {recipients}");
 
+        // Send notification through webhook
         await _webhookService.SendWebhookNotification(
             "Medication Reminder",
             $"{_reminderMessage} to {recipients}"
         );
     }
+}
+
+public class MonitorPayload
+{
+    public string ChannelId { get; set; }
+    public string ReturnUrl { get; set; }
+    public List<Setting> Settings { get; set; }
+
+    public string GetSetting(string label)
+    {
+        var setting = Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
+        return setting?.Default;
+    }
+}
+
+public class Setting
+{
+    public string Label { get; set; }
+    public string Type { get; set; }
+    public bool Required { get; set; }
+    public string Default { get; set; }
 }
