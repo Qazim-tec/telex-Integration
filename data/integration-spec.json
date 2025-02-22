@@ -6,9 +6,9 @@
     },
     "descriptions": {
       "app_description": "MedAlert sends scheduled medical reminders to a Telex channel.",
-      "app_logo": "http://localhost:5000/assets/medalert-logo.png",
+      "app_logo": "https://unsplash.com/photos/white-and-blue-medication-pill-blister-pack-jwWtZrm67VI",
       "app_name": "MedAlert",
-      "app_url": "https://telex-integration-t6op.onrender.com",
+      "app_url": "https://telex-integration-37pm.onrender.com",
       "background_color": "#3498db"
     },
     "integration_category": "Task Automation",
@@ -42,14 +42,14 @@
         "type": "text",
         "required": true,
         "default": "* * * * *"
-        
+
       },
       {
         "label": "Reminder Message",
         "type": "text",
         "required": true,
         "default": "Time for your medication!"
-       },
+      },
       {
         "label": "Alert Recipients",
         "type": "multi-checkbox",
@@ -58,7 +58,7 @@
         "options": [ "Patient", "Doctor", "Caregiver" ]
       }
     ],
-    "tick_url": "https://telex-integration-t6op.onrender.com/api/medalert/tick",
-    "target_url": "https://telex-integration-t6op.onrender.com/api/medalert/collect"
+    "tick_url": "https://telex-integration-37pm.onrender.com/api/medalert/tick",
+    "target_url": "https://telex-integration-37pm.onrender.com/api/medalert/collect"
   }
 }

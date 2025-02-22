@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 public class WebhookService
@@ -13,7 +14,7 @@ public class WebhookService
         _httpClient = httpClient;
     }
 
-    public async Task SendWebhookNotification(string eventName, string message, string username)
+    public async Task SendWebhookNotification(string eventName, string message, string username = "MedAlert")
     {
         var payload = new
         {
@@ -23,15 +24,20 @@ public class WebhookService
             username = username
         };
 
+        var jsonPayload = JsonSerializer.Serialize(payload);
+        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
         try
         {
-            var response = await _httpClient.PostAsJsonAsync(_webhookUrl, payload);
-            response.EnsureSuccessStatusCode();
-            Console.WriteLine("[Webhook Sent Successfully]");
+            var response = await _httpClient.PostAsync(_webhookUrl, content);
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"[Webhook Error] {response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
+            }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[Webhook Error] {ex.Message}");
+            Console.WriteLine($"[Webhook Exception] {ex.Message}");
         }
     }
 }
