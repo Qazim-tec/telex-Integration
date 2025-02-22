@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 [Route("api/medalert")]
 [ApiController]
@@ -14,12 +13,10 @@ public class TelexController : ControllerBase
     private string _reminderMessage = "Time for your medication!";
     private string[] _alertRecipients = { "Patient" };
     private readonly WebhookService _webhookService;
-    private readonly ILogger<TelexController> _logger;
 
-    public TelexController(WebhookService webhookService, ILogger<TelexController> logger)
+    public TelexController(WebhookService webhookService)
     {
         _webhookService = webhookService;
-        _logger = logger;
         LoadSettings();
     }
 
@@ -29,7 +26,7 @@ public class TelexController : ControllerBase
         {
             if (!System.IO.File.Exists(_jsonFilePath))
             {
-                _logger.LogWarning("JSON file not found. Using default settings.");
+                Console.WriteLine("[Warning] JSON file not found. Using defaults.");
                 return;
             }
 
@@ -57,7 +54,7 @@ public class TelexController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Failed to load settings: {ex.Message}");
+            Console.WriteLine($"[Error] Failed to load settings: {ex.Message}");
         }
     }
 
@@ -72,37 +69,27 @@ public class TelexController : ControllerBase
     }
 
     [HttpPost("tick")]
-    public IActionResult Tick([FromBody] MonitorPayload payload)
+    public async Task<IActionResult> Tick([FromBody] MonitorPayload payload)
     {
         if (payload == null)
-        {
             return BadRequest(new { error = "Invalid payload" });
-        }
 
-        _logger.LogInformation("Received tick for ChannelId: {ChannelId}", payload.ChannelId);
-
-        // Fetch settings
-        string interval = payload.GetSetting("Interval") ?? "* * * * *";
+        // Fetch settings from payload
         _reminderMessage = payload.GetSetting("Reminder Message") ?? _reminderMessage;
         _alertRecipients = payload.GetSetting("Alert Recipients")?.Split(",") ?? _alertRecipients;
 
-        _logger.LogInformation("Reminder set for {Recipients}: {Message}", string.Join(", ", _alertRecipients), _reminderMessage);
+        Console.WriteLine($"[Tick Received] ChannelId: {payload.ChannelId}");
+        Console.WriteLine($"[Return URL] {payload.ReturnUrl}");
+        Console.WriteLine($"[Reminder] {_reminderMessage} to {string.Join(", ", _alertRecipients)}");
 
-        // Process reminder asynchronously
-        Task.Run(() => SendReminder());
-
-        return Accepted(new
-        {
-            success = true,
-            message = "Reminder is being processed",
-            returnUrl = payload.ReturnUrl
-        });
+        await SendReminder();
+        return Ok(new { success = true, message = "Reminder sent successfully", returnUrl = payload.ReturnUrl });
     }
 
     private async Task SendReminder()
     {
         string recipients = string.Join(", ", _alertRecipients);
-        _logger.LogInformation("Sending reminder: {Message} to {Recipients}", _reminderMessage, recipients);
+        Console.WriteLine($"[Reminder Sent] {_reminderMessage} to {recipients}");
 
         await _webhookService.SendWebhookNotification(
             "Medication Reminder",
@@ -119,7 +106,8 @@ public class MonitorPayload
 
     public string GetSetting(string label)
     {
-        return Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase))?.Default;
+        var setting = Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
+        return setting?.Default;
     }
 }
 
