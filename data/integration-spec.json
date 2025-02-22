@@ -22,16 +22,16 @@
     ],
     "key_features": [
       "Schedule medical reminders at intervals.",
-      "Send automated alerts to Telex channels.",
-      "Customize message frequency and content.",
-      "Support for multiple notification channels."
+      "Send automated alerts to Telex channels."
+     
+      
     ],
     "settings": [
       {
         "label": "Interval",
         "type": "text",
         "required": true,
-        "default": "*/5 * * * *"
+        "default": "* * * * *"
       },
       {
         "label": "Reminder Message",
