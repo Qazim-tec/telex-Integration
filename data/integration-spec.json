@@ -58,7 +58,7 @@
         "options": [ "Patient", "Doctor", "Caregiver" ]
       }
     ],
-    "tick_url": "https://telex-integration-37pm.onrender.com/api/medalert/tick",
+    
     "target_url": "https://telex-integration-37pm.onrender.com/api/medalert/collect"
   }
 }
