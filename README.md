@@ -2,6 +2,8 @@ MedAlert
 
 Overview
 
+https://telex-integration-37pm.onrender.com/api/medalert/integration-spec
+
 MedAlert is a Telex integration designed to send automated medical reminders at predefined intervals. It ensures that patients and designated recipients receive timely notifications about their medication schedules.
 
 Features
@@ -26,7 +28,7 @@ Webhook Service
 
 Handle Periodic Reminder Triggers
 
-POST /api/medalert/tick
+POST https://telex-integration-37pm.onrender.com/api/medalert/tick
 
 Triggered automatically at configured intervals by Telex.
 
