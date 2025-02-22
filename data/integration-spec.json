@@ -54,7 +54,7 @@
         "label": "Alert Recipients",
         "type": "multi-checkbox",
         "required": true,
-        "default": "Patient",
+        "default": "My Guy",
         "options": [ "Patient", "Doctor", "Caregiver" ]
       }
     ],
