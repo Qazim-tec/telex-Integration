@@ -6,7 +6,7 @@
     },
     "descriptions": {
       "app_description": "MedAlert sends scheduled medical reminders to a Telex channel.",
-      "app_logo": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.scientificamerican.com%2Farticle%2Fwhen-choosing-what-diseases-to-develop-drugs-for-it-all-comes-down-to-funding%2F&psig=AOvVaw2jhxEPE4iJF7L8O_twDpWJ&ust=1740267924032000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDo2LD51YsDFQAAAAAdAAAAABAE",
+      "app_logo": "https://unsplash.com/photos/jwWtZrm67VI",
       "app_name": "MedAlert",
       "app_url": "https://telex-integration-37pm.onrender.com",
       "background_color": "#3498db"
@@ -18,10 +18,6 @@
       {
         "label": "Reminder Sent",
         "value": true
-      },
-      {
-        "label": "output_channel_2",
-        "value": false
       }
     ],
     "key_features": [
@@ -30,19 +26,12 @@
       "Customize message frequency and content.",
       "Support for multiple notification channels."
     ],
-    "permissions": {
-      "reminder_user": {
-        "always_online": true,
-        "display_name": "MedAlert Scheduler"
-      }
-    },
     "settings": [
       {
         "label": "Interval",
         "type": "text",
         "required": true,
-        "default": "* * * * *"
-
+        "default": "*/5 * * * *"
       },
       {
         "label": "Reminder Message",
@@ -55,7 +44,7 @@
         "type": "multi-checkbox",
         "required": true,
         "default": "Patient",
-        "options": [ "Patient", "Doctor", "Caregiver" ]
+        "options": ["Patient", "Doctor", "Caregiver"]
       }
     ],
     "tick_url": "https://telex-integration-37pm.onrender.com/api/medalert/tick",
