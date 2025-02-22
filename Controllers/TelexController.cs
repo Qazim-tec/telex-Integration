@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 [Route("api/medalert")]
 [ApiController]
 public class TelexController : ControllerBase
 {
     private readonly string _jsonFilePath = "data/integration-spec.json";
-    private static string _reminderMessage = "Time for your medication!";
-    private static string[] _alertRecipients = { "Patient" };
+    private string _reminderMessage = "Time for your medication!";
+    private string[] _alertRecipients = { "Patient" };
     private readonly WebhookService _webhookService;
+    private readonly ILogger<TelexController> _logger;
 
-    public TelexController(WebhookService webhookService)
+    public TelexController(WebhookService webhookService, ILogger<TelexController> logger)
     {
         _webhookService = webhookService;
+        _logger = logger;
         LoadSettings();
     }
 
@@ -26,38 +29,38 @@ public class TelexController : ControllerBase
         {
             if (!System.IO.File.Exists(_jsonFilePath))
             {
-                Console.WriteLine("[Warning] JSON file not found. Using defaults.");
+                _logger.LogWarning("JSON file not found. Using default settings.");
                 return;
             }
 
             var jsonData = System.IO.File.ReadAllText(_jsonFilePath);
-            using var document = JsonDocument.Parse(jsonData);
-            var root = document.RootElement.GetProperty("data");
+            var jsonObject = JsonSerializer.Deserialize<JsonDocument>(jsonData);
 
-            var settingsArray = root.GetProperty("settings").EnumerateArray();
-            foreach (var setting in settingsArray)
+            if (jsonObject == null) return;
+
+            var root = jsonObject.RootElement.GetProperty("data");
+
+            foreach (var setting in root.GetProperty("settings").EnumerateArray())
             {
                 var label = setting.GetProperty("label").GetString();
                 if (label == "Reminder Message")
                 {
                     _reminderMessage = setting.GetProperty("default").GetString() ?? _reminderMessage;
                 }
-                else if (label == "Alert Recipients")
+                else if (label == "Alert Recipients" && setting.TryGetProperty("default", out var defaultValue))
                 {
-                    if (setting.TryGetProperty("default", out var defaultValue) && defaultValue.ValueKind == JsonValueKind.String)
-                    {
-                        _alertRecipients = new[] { defaultValue.GetString() ?? "Patient" };
-                    }
+                    _alertRecipients = defaultValue.ValueKind == JsonValueKind.String
+                        ? new[] { defaultValue.GetString() ?? "Patient" }
+                        : _alertRecipients;
                 }
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[Error] Failed to load settings: {ex.Message}");
+            _logger.LogError($"Failed to load settings: {ex.Message}");
         }
     }
 
-    // Endpoint for Telex to fetch the integration spec (includes interval)
     [HttpGet("integration-spec")]
     public IActionResult GetIntegrationSpec()
     {
@@ -65,46 +68,42 @@ public class TelexController : ControllerBase
             return NotFound(new { error = "Integration spec file not found" });
 
         var jsonData = System.IO.File.ReadAllText(_jsonFilePath);
-        var jsonObject = JsonSerializer.Deserialize<object>(jsonData);
-
-        return Ok(jsonObject);
+        return Content(jsonData, "application/json");
     }
 
-    // This endpoint is triggered automatically by Telex at the configured interval
     [HttpPost("tick")]
-    public async Task<IActionResult> Tick([FromBody] MonitorPayload payload)
+    public IActionResult Tick([FromBody] MonitorPayload payload)
     {
         if (payload == null)
         {
             return BadRequest(new { error = "Invalid payload" });
         }
 
-        // Fetch interval from the integration spec (e.g., from the JSON file)
-        var interval = payload.GetSetting("Interval") ?? "* * * * *"; // Default to "* * * * *" (every minute)
-        Console.WriteLine($"[Interval] {interval}");
+        _logger.LogInformation("Received tick for ChannelId: {ChannelId}", payload.ChannelId);
 
-        // Handle reminder logic based on received settings
+        // Fetch settings
+        string interval = payload.GetSetting("Interval") ?? "* * * * *";
         _reminderMessage = payload.GetSetting("Reminder Message") ?? _reminderMessage;
         _alertRecipients = payload.GetSetting("Alert Recipients")?.Split(",") ?? _alertRecipients;
 
-        // Log channelId for debugging purposes
-        Console.WriteLine($"[Received Tick] ChannelId: {payload.ChannelId}");
+        _logger.LogInformation("Reminder set for {Recipients}: {Message}", string.Join(", ", _alertRecipients), _reminderMessage);
 
-        // Log or return the returnUrl if needed
-        Console.WriteLine($"[Return URL] {payload.ReturnUrl}");
+        // Process reminder asynchronously
+        Task.Run(() => SendReminder());
 
-        // Simulate sending a reminder after the interval (for illustration, add real interval logic here)
-        await SendReminder();
-
-        return Ok(new { success = true, message = "Reminder sent successfully", returnUrl = payload.ReturnUrl });
+        return Accepted(new
+        {
+            success = true,
+            message = "Reminder is being processed",
+            returnUrl = payload.ReturnUrl
+        });
     }
 
     private async Task SendReminder()
     {
         string recipients = string.Join(", ", _alertRecipients);
-        Console.WriteLine($"[Reminder Sent] {_reminderMessage} to {recipients}");
+        _logger.LogInformation("Sending reminder: {Message} to {Recipients}", _reminderMessage, recipients);
 
-        // Send notification through webhook
         await _webhookService.SendWebhookNotification(
             "Medication Reminder",
             $"{_reminderMessage} to {recipients}"
@@ -120,8 +119,7 @@ public class MonitorPayload
 
     public string GetSetting(string label)
     {
-        var setting = Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
-        return setting?.Default;
+        return Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase))?.Default;
     }
 }
 
