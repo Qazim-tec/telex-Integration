@@ -89,8 +89,14 @@ public class TelexController : ControllerBase
         if (nextOccurrence.HasValue)
         {
             var delay = (int)(nextOccurrence.Value - now).TotalMilliseconds;
+            if (delay < 0) delay = 1000; // Ensure at least 1 second delay to prevent issues
+
             _reminderTimer?.Dispose();
-            _reminderTimer = new Timer(SendReminderCallback, null, delay, Timeout.Infinite);
+            _reminderTimer = new Timer(async _ =>
+            {
+                await SendReminder();
+                ScheduleNextRun(cronExpression); // Reschedule
+            }, null, delay, Timeout.Infinite);
         }
     }
 

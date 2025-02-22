@@ -54,11 +54,12 @@
         "label": "Alert Recipients",
         "type": "multi-checkbox",
         "required": true,
-        "default": "My Guy",
+        "default": "Patient",
         "options": [ "Patient", "Doctor", "Caregiver" ]
       }
     ],
-    
+
+    "tick_url": "https://telex-integration-37pm.onrender.com/api/medalert/tick",
     "target_url": "https://telex-integration-37pm.onrender.com/api/medalert/collect"
   }
 }
