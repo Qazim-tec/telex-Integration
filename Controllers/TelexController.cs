@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
+
 [Route("api/medalert")]
 [ApiController]
 public class TelexController : ControllerBase
@@ -13,10 +14,13 @@ public class TelexController : ControllerBase
     private string _reminderMessage = "Time for your medication!";
     private string[] _alertRecipients = { "Patient" };
     private readonly WebhookService _webhookService;
+    private readonly MedAlertService _medAlertService; // ✅ Add this
 
-    public TelexController(WebhookService webhookService)
+
+    public TelexController(WebhookService webhookService, MedAlertService medAlertService)
     {
         _webhookService = webhookService;
+        _medAlertService = medAlertService; // ✅ Assign it
         LoadSettings();
     }
 
@@ -46,7 +50,7 @@ public class TelexController : ControllerBase
                 }
                 else if (label == "Alert Recipients" && setting.TryGetProperty("default", out var defaultValue))
                 {
-                    _alertRecipients = defaultValue.ValueKind == JsonValueKind.String
+                    _alertRecipients = defaultValue.ValueKind == JsonValueKind.String 
                         ? new[] { defaultValue.GetString() ?? "Patient" }
                         : _alertRecipients;
                 }
@@ -74,47 +78,29 @@ public class TelexController : ControllerBase
         if (payload == null)
             return BadRequest(new { error = "Invalid payload" });
 
-        // Fetch settings from payload
-        _reminderMessage = payload.GetSetting("Reminder Message") ?? _reminderMessage;
-        _alertRecipients = payload.GetSetting("Alert Recipients")?.Split(",") ?? _alertRecipients;
-
         Console.WriteLine($"[Tick Received] ChannelId: {payload.ChannelId}");
         Console.WriteLine($"[Return URL] {payload.ReturnUrl}");
-        Console.WriteLine($"[Reminder] {_reminderMessage} to {string.Join(", ", _alertRecipients)}");
 
-        await SendReminder();
-        return Ok(new { success = true, message = "Reminder sent successfully", returnUrl = payload.ReturnUrl });
+        foreach (var setting in payload.Settings)
+        {
+            Console.WriteLine($"[Setting] {setting.Label}: {setting.Default}");
+        }
+
+        await _medAlertService.TriggerTick(payload); // ✅ Pass payload to use dynamic settings
+
+        return Ok(new
+        {
+            success = true,
+            message = "Reminder sent successfully",
+            returnUrl = payload.ReturnUrl,
+            receivedSettings = payload.Settings
+        });
     }
 
-    private async Task SendReminder()
-    {
-        string recipients = string.Join(", ", _alertRecipients);
-        Console.WriteLine($"[Reminder Sent] {_reminderMessage} to {recipients}");
 
-        await _webhookService.SendWebhookNotification(
-            "Medication Reminder",
-            $"{_reminderMessage} to {recipients}"
-        );
-    }
+
+
+
 }
 
-public class MonitorPayload
-{
-    public string ChannelId { get; set; }
-    public string ReturnUrl { get; set; }
-    public List<Setting> Settings { get; set; }
 
-    public string GetSetting(string label)
-    {
-        var setting = Settings?.Find(s => s.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
-        return setting?.Default;
-    }
-}
-
-public class Setting
-{
-    public string Label { get; set; }
-    public string Type { get; set; }
-    public bool Required { get; set; }
-    public string Default { get; set; }
-}

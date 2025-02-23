@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MedAlert")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+376fafff9d94e64730aa4c9b35ad0567f86f6bbd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be155e20a59ac8e1611135bc255c4cc8c0441095")]
 [assembly: System.Reflection.AssemblyProductAttribute("MedAlert")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MedAlert")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

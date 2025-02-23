@@ -1,57 +1,46 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿var builder = WebApplication.CreateBuilder(args);
 
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Enable CORS policies
-builder.Services.AddCors(options =>
+try
 {
-    options.AddPolicy("AllowAll", policy =>
+    // Your service registrations here...
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    
+    builder.Services.AddCors(options =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        options.AddPolicy("AllowAll", policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        });
+
+        options.AddPolicy("AllowTelex", policy =>
+            policy.AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .WithOrigins("https://telex.im", "https://*.telex.im")
+        );
     });
 
-    options.AddPolicy("AllowTelex", policy =>
-       policy.AllowAnyMethod()
-             .AllowAnyHeader()
-             .WithOrigins(
-                 "https://telex.im",
-                 "https://*.telex.im"
-             )
-   );
-});
+    builder.Services.AddHttpClient();
+    builder.Services.AddScoped<WebhookService>();
+    builder.Services.AddScoped<MedAlertService>(); // ✅ Register it
+    builder.Services.AddHostedService<MedAlertScheduler>();
+    
 
-// Register HttpClient for making HTTP requests
-builder.Services.AddHttpClient();
+    var app = builder.Build();
 
-// Register WebhookService
-builder.Services.AddScoped<WebhookService>();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHttpsRedirection();
+    app.UseCors("AllowAll");
+    app.UseAuthorization();
+    app.UseStaticFiles();
+    app.MapControllers();
 
-var app = builder.Build();
-
-// Enable Swagger UI for API testing
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
-
-// Enable CORS (should be before Authorization)
-app.UseCors("AllowAll");
-
-app.UseAuthorization();
-app.UseStaticFiles();
-
-// Map API controllers
-app.MapControllers();
-
-app.Run();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[Startup Error] {ex.Message}");
+    throw;
+}
