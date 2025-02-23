@@ -1,49 +1,69 @@
-MedAlert
+﻿# MedAlert - Telex ASP.NET Core Integration
 
-Overview
+## Introduction
+MedAlert is a Telex integration that automates medical reminders at scheduled intervals. This integration sends timely notifications to a Telex channel based on the specified schedule in the settings.
 
-https://telex-integration-37pm.onrender.com/api/medalert/integration-spec
+## Features
+- ✅ Sends scheduled medical reminders to a Telex channel.
+- ⏳ Allows custom scheduling using CRON expressions.
+- ⚙️ Supports dynamic configuration via API.
 
-MedAlert is a Telex integration designed to send automated medical reminders at predefined intervals. It ensures that patients and designated recipients receive timely notifications about their medication schedules.
+## Technologies Used
+- 🟣 **C# (.NET 8)**
+- 🌐 **ASP.NET Core (Web API)**
+- 🔗 **Telex Integration**
 
-Features
+## Installation
 
-Fetches integration specifications dynamically.
+### Prerequisites
+Ensure you have the following installed on your system:
 
-Periodically triggers reminders using Telex automation.
+- **.NET 8 SDK** – [Download Here](https://dotnet.microsoft.com/en-us/download)
+- **ASP.NET Core Runtime** – Included with .NET SDK
 
-Customizable reminder messages and recipients.
+### Steps
+ Clone the Repository
+```
+git clone https://github.com/Qazim-tec/telex-Integration.git
+cd telex-Integration
 
-Sends webhook notifications to external services.
+```
+Install Dependencies
+Run the following command inside the project directory:
 
-Technologies Used
+```
+    dotnet restore 
+    dotnet build --configuration Release  
+```
 
-ASP.NET Core (C#)
+Run the Application
 
-JSON for configuration
+```
+    dotnet run  
+```
 
-Telex Integration
+## Testing the Integration
+You can manually test the integration by sending a tick request.
 
-Webhook Service
+### Send a Reminder Every 5 Minutes
+```
+curl -X POST https://telex-integration-37pm.onrender.com/api/medalert/tick
+"Content-Type: application/json" -d '{
+  "channel_id": "your_channel_id",
+  "return_url": "your_return_url",
+  "settings": [
+    {
+      "label": "interval",
+      "type": "text",
+      "required": true,
+      "default": "*/5 * * * *"
+    }
+  ]
+}'
 
-Handle Periodic Reminder Triggers
+```
 
-POST https://telex-integration-37pm.onrender.com/api/medalert/tick
 
-Triggered automatically at configured intervals by Telex.
 
-Configuration
-
-Settings are loaded from data/integration-spec.json.
-
-Defaults are applied if the configuration file is missing.
-
-How It Works
-
-Telex triggers the tick endpoint at the specified interval.
-
-The payload settings are extracted to update the reminder message and recipients.
-
-The reminder message is logged and sent via the webhook service.
 
 ![MedAlert Preview](telex.png)
