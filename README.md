@@ -47,19 +47,21 @@ You can manually test the integration by sending a tick request.
 
 ### Send a Reminder Every 5 Minutes
 ```
-curl -X POST https://telex-integration-37pm.onrender.com/api/medalert/tick
-"Content-Type: application/json" -d '{
-  "channel_id": "your_channel_id",
-  "return_url": "your_return_url",
-  "settings": [
-    {
-      "label": "interval",
-      "type": "text",
-      "required": true,
-      "default": "*/5 * * * *"
-    }
-  ]
-}'
+curl -X POST "https://telex-integration-37pm.onrender.com/api/medalert/tick" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "channel_id": "your_channel_id",
+       "return_url": "your_return_url",
+       "settings": [
+         {
+           "label": "interval",
+           "type": "text",
+           "required": true,
+           "default": "*/5 * * * *"
+         }
+       ]
+     }'
+
 
 ```
 
