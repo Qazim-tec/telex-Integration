@@ -14,13 +14,13 @@ public class TelexController : ControllerBase
     private string _reminderMessage = "Time for your medication!";
     private string[] _alertRecipients = { "Patient" };
     private readonly WebhookService _webhookService;
-    private readonly MedAlertService _medAlertService; // ✅ Add this
+    private readonly MedAlertService _medAlertService; 
 
 
     public TelexController(WebhookService webhookService, MedAlertService medAlertService)
     {
         _webhookService = webhookService;
-        _medAlertService = medAlertService; // ✅ Assign it
+        _medAlertService = medAlertService; 
         LoadSettings();
     }
 
@@ -86,7 +86,7 @@ public class TelexController : ControllerBase
             Console.WriteLine($"[Setting] {setting.Label}: {setting.Default}");
         }
 
-        await _medAlertService.TriggerTick(payload); // ✅ Pass payload to use dynamic settings
+        await _medAlertService.TriggerTick(payload); 
 
         return Ok(new
         {

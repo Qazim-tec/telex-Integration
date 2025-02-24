@@ -4,7 +4,7 @@
 
 public class MonitorPayload
     {
-        [JsonPropertyName("channel_id")] // ✅ Match the expected snake_case
+        [JsonPropertyName("channel_id")] 
         public string ChannelId { get; set; }
 
         [JsonPropertyName("return_url")]

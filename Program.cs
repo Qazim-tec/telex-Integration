@@ -23,7 +23,7 @@ try
 
     builder.Services.AddHttpClient();
     builder.Services.AddScoped<WebhookService>();
-    builder.Services.AddScoped<MedAlertService>(); // ✅ Register it
+    builder.Services.AddScoped<MedAlertService>(); 
     builder.Services.AddHostedService<MedAlertScheduler>();
     
 
